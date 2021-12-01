@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "387639336168",
+    "project_id": "readmate-68164925",
+    "storage_bucket": "readmate-68164925.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387639336168:android:7803c4439f49a743f3fd5d",
+        "android_client_info": {
+          "package_name": "com.example.readmate_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387639336168-6kthqpfm5tt7md37sokqfbfkvjm61nca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.readmate_app",
+            "certificate_hash": "d4ed8766c7f5ffa8cac0befe41a4bcfd6b357292"
+          }
+        },
+        {
+          "client_id": "387639336168-bekbeuarf51gnoobfr7mrfnblc2nami0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8ZNdwQ2iQDdjEOmoKCy9eN-6b2RxpNuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387639336168-bekbeuarf51gnoobfr7mrfnblc2nami0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
