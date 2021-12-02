@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:readmate_app/screens/details_screen/details_view.dart';
+import 'package:readmate_app/ui/screens/details_screen/details_view.dart';
 import 'package:readmate_app/ui/screens/authentication_screen/authentication_view.dart';
 import 'package:readmate_app/ui/screens/home_screen/home_view.dart';
 import 'package:readmate_app/ui/screens/home_screen/home_viewmodel.dart';

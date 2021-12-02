@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readmate_app/screens/profile_screen/profile_viewmodel.dart';
+import 'package:readmate_app/ui/screens/profile_screen/profile_viewmodel.dart';
 
 class ProfileView extends StatelessWidget {
   final ProfileViewModel _viewModel = ProfileViewModel();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readmate_app/screens/splash_screen/splash_viewmodel.dart';
+import 'package:readmate_app/ui/screens/splash_screen/splash_viewmodel.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readmate_app/screens/authentication_screen/authentication_viewmodel.dart';
+import 'package:readmate_app/ui/screens/authentication_screen/authentication_viewmodel.dart';
 
 class AuthenticationView extends StatelessWidget {
   final AuthenticationViewModel _viewModel = AuthenticationViewModel();
