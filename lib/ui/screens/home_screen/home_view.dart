@@ -129,7 +129,10 @@ class _HomeViewState extends State<HomeView> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Flexible(
-              child: CoverImageWidget(url: ebook.coverLink),
+              child: CoverImageWidget(
+                url: ebook.coverLink,
+                height: 100,
+              ),
             ),
             Flexible(
               child: buildEbookTitleText(ebook),
