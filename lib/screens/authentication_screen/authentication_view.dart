@@ -17,12 +17,25 @@ class AuthenticationView extends StatelessWidget {
 
   Column buildBody(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        buildContinueWithGoogleButton(context),
-        buildContinueAsGuest(context),
+        buildLogo(),
+        Column(
+          children: [
+            buildContinueWithGoogleButton(context),
+            const SizedBox(height: 24.0),
+            buildContinueAsGuest(context),
+          ],
+        ),
       ],
+    );
+  }
+
+  Image buildLogo() {
+    return Image.asset(
+      "assets/google_logo.png",
+      height: 150,
     );
   }
 
@@ -34,7 +47,10 @@ class AuthenticationView extends StatelessWidget {
       ),
       label: const Text(
         "Continue with Google",
-        style: TextStyle(color: Colors.black54),
+        style: TextStyle(
+          color: Colors.black54,
+          fontSize: 18.0,
+        ),
       ),
       style: ButtonStyle(
         elevation: MaterialStateProperty.all<double>(5.0),
@@ -56,7 +72,10 @@ class AuthenticationView extends StatelessWidget {
       ),
       label: const Text(
         "Continue as a Guest",
-        style: TextStyle(color: Colors.black54),
+        style: TextStyle(
+          color: Colors.black54,
+          fontSize: 18.0,
+        ),
       ),
       style: ButtonStyle(
         elevation: MaterialStateProperty.all<double>(5.0),

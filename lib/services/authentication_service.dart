@@ -33,7 +33,7 @@ class AuthenticationService {
     return isSuccess;
   }
 
-  // returns information of user that signed in
+  // returns signed in user
   static User? getUser() {
     return FirebaseAuth.instance.currentUser;
   }
