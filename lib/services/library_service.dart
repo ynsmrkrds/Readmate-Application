@@ -5,7 +5,7 @@ import 'package:readmate_app/models/ebook.dart';
 import 'package:readmate_app/models/library.dart';
 import 'package:http/http.dart' as http;
 
-class LibraryApi {
+class LibraryService {
   // base url of library api
   static const String _baseUrl = "http://20.86.32.53/books";
 
