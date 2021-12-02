@@ -3,6 +3,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:provider/provider.dart';
 import 'package:readmate_app/models/ebook.dart';
+import 'package:readmate_app/providers/library_provider.dart';
 import 'package:readmate_app/ui/screens/home_screen/home_viewmodel.dart';
 import 'package:readmate_app/ui/widgets/cover_image_widget.dart';
 
@@ -21,7 +22,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
 
     // initializes the view model
-    _viewModel = Provider.of<HomeViewModel>(context, listen: false);
+    _viewModel = HomeViewModel();
 
     // starts the fetching ebooks process
     _viewModel.fetchEbooks();
@@ -72,13 +73,13 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Consumer<HomeViewModel> buildBody() {
+  Consumer<LibraryProvider> buildBody() {
     return Consumer(
       builder: (context, provider, child) => buildEbooksFrame(provider),
     );
   }
 
-  GridView buildEbooksFrame(HomeViewModel provider) {
+  GridView buildEbooksFrame(LibraryProvider provider) {
     return GridView.builder(
       controller: _viewModel.scrollController,
       padding: const EdgeInsets.all(18.0),
@@ -92,7 +93,7 @@ class _HomeViewState extends State<HomeView> {
           blurBackgroundColor: Colors.black,
           menuWidth: MediaQuery.of(context).size.width * 0.5,
           menuItems: [
-            buildGoToDetailsButton(),
+            buildGoToDetailsButton(index),
             buildAddToBookshelfButton(),
           ],
           onPressed: () {},
@@ -102,11 +103,11 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  FocusedMenuItem buildGoToDetailsButton() {
+  FocusedMenuItem buildGoToDetailsButton(int index) {
     return FocusedMenuItem(
       title: const Text("Details"),
       trailingIcon: const Icon(Icons.info),
-      onPressed: () => _viewModel.goToDetailsView(context),
+      onPressed: () => _viewModel.goToDetailsView(context, index),
     );
   }
 

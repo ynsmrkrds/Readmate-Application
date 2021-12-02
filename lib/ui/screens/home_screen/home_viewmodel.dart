@@ -2,14 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:readmate_app/models/ebook.dart';
-import 'package:readmate_app/services/library_service.dart';
+import 'package:readmate_app/providers/library_provider.dart';
 
-class HomeViewModel with ChangeNotifier {
-  late final List<Ebook> _ebooks;
+class HomeViewModel {
   late final ScrollController _scrollController;
 
   HomeViewModel() {
-    _ebooks = [];
     _scrollController = ScrollController();
 
     _scrollController.addListener(() {
@@ -19,19 +17,13 @@ class HomeViewModel with ChangeNotifier {
     });
   }
 
-  List<Ebook> get ebooks => _ebooks;
+  List<Ebook> get ebooks => libraryProvider.ebooks;
 
   ScrollController get scrollController => _scrollController;
 
   void fetchEbooks() async {
     for (int id in _generateRandomNumber()) {
-      Ebook? ebook = await LibraryService.fetch(id);
-
-      if (ebook != null) {
-        _ebooks.add(ebook);
-
-        notifyListeners();
-      }
+      libraryProvider.fetchEbooks(id);
     }
   }
 
@@ -44,7 +36,11 @@ class HomeViewModel with ChangeNotifier {
     Navigator.pushNamed(context, "/profile");
   }
 
-  void goToDetailsView(BuildContext context) {
-    Navigator.pushNamed(context, "/details");
+  void goToDetailsView(BuildContext context, int index) {
+    Navigator.pushNamed(
+      context,
+      "/details",
+      arguments: index,
+    );
   }
 }
