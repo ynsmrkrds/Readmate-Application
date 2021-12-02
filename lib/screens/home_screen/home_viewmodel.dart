@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:readmate_app/models/ebook.dart';
-import 'package:readmate_app/services/library_api.dart';
+import 'package:readmate_app/services/library_service.dart';
 
 class HomeViewModel with ChangeNotifier {
   late final List<Ebook> _ebooks;
@@ -25,7 +25,7 @@ class HomeViewModel with ChangeNotifier {
 
   void fetchEbooks() async {
     for (int id in _generateRandomNumber()) {
-      Ebook? ebook = await LibraryApi.fetch(id);
+      Ebook? ebook = await LibraryService.fetch(id);
 
       if (ebook != null) {
         _ebooks.add(ebook);
