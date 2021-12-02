@@ -12,8 +12,8 @@ class Author {
   factory Author.fromJson(Map<String, dynamic> json) {
     return Author(
       name: json["name"] as String,
-      birthYear: json["birthYear"] as int?,
-      deathYear: json["deathYear"] as int?,
+      birthYear: json["birth_year"] as int?,
+      deathYear: json["death_year"] as int?,
     );
   }
 }
