@@ -33,7 +33,7 @@ class AuthenticationView extends StatelessWidget {
         height: 25,
       ),
       label: const Text(
-        "Google ile Devam Et",
+        "Continue with Google",
         style: TextStyle(color: Colors.black54),
       ),
       style: ButtonStyle(
@@ -55,7 +55,7 @@ class AuthenticationView extends StatelessWidget {
         size: 30,
       ),
       label: const Text(
-        "Misafir Olarak Devam Et",
+        "Continue as a Guest",
         style: TextStyle(color: Colors.black54),
       ),
       style: ButtonStyle(

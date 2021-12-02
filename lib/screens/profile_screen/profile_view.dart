@@ -10,7 +10,7 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profil"),
+        title: const Text("Profile"),
       ),
       body: Center(
         child: buildBody(context),
@@ -79,7 +79,7 @@ class ProfileView extends StatelessWidget {
         size: 36,
       ),
       label: const Text(
-        "Oturumu Kapat",
+        "Sign Out",
         style: TextStyle(
           color: Colors.black54,
           fontSize: 18.0,
