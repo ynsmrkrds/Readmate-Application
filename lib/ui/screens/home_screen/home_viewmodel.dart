@@ -43,4 +43,8 @@ class HomeViewModel with ChangeNotifier {
   void goToProfileView(BuildContext context) {
     Navigator.pushNamed(context, "/profile");
   }
+
+  void goToDetailsView(BuildContext context) {
+    Navigator.pushNamed(context, "/details");
+  }
 }
