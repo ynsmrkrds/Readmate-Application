@@ -28,6 +28,12 @@ class LibraryService {
     return _checkResponse(response);
   }
 
+  static Future<Library?> fetchNextPage(String url) async {
+    final http.Response response = await http.get(Uri.parse(url));
+
+    return _checkResponse(response);
+  }
+
   /* checks the status code of response 
     - returns a Library object if status code is equals to 200 
     - returns null if status code is not equals to 200 */

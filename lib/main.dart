@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:readmate_app/providers/ebook_provider.dart';
 import 'package:readmate_app/providers/library_provider.dart';
 import 'package:readmate_app/ui/screens/details_screen/details_view.dart';
 import 'package:readmate_app/ui/screens/authentication_screen/authentication_view.dart';
 import 'package:readmate_app/ui/screens/home_screen/home_view.dart';
 import 'package:readmate_app/ui/screens/profile_screen/profile_view.dart';
+import 'package:readmate_app/ui/screens/searching_screen/searching_view.dart';
 import 'package:readmate_app/ui/screens/splash_screen/splash_view.dart';
 
 Future main() async {
@@ -22,6 +24,7 @@ class ReadmateApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<EbookProvider>(create: (context) => ebookProvider),
         ChangeNotifierProvider<LibraryProvider>(create: (context) => libraryProvider),
       ],
       child: MaterialApp(
@@ -32,6 +35,7 @@ class ReadmateApp extends StatelessWidget {
           "/home": (context) => const HomeView(),
           "/profile": (context) => ProfileView(),
           "/details": (context) => DetailsView(),
+          "/searching": (context) => const SearchingView(),
         },
         initialRoute: "/",
       ),

@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:readmate_app/models/ebook.dart';
-import 'package:readmate_app/providers/library_provider.dart';
+import 'package:readmate_app/providers/ebook_provider.dart';
 
 class HomeViewModel {
   late final ScrollController _scrollController;
@@ -17,13 +16,11 @@ class HomeViewModel {
     });
   }
 
-  List<Ebook> get ebooks => libraryProvider.ebooks;
-
   ScrollController get scrollController => _scrollController;
 
   void fetchEbooks() async {
     for (int id in _generateRandomNumber()) {
-      libraryProvider.fetchEbooks(id);
+      ebookProvider.fetchEbooks(id);
     }
   }
 
@@ -32,15 +29,11 @@ class HomeViewModel {
     return List.generate(25, (index) => random.nextInt(15933));
   }
 
-  void goToProfileView(BuildContext context) {
-    Navigator.pushNamed(context, "/profile");
+  void goToSearchingView(BuildContext context) {
+    Navigator.pushNamed(context, "/searching");
   }
 
-  void goToDetailsView(BuildContext context, int index) {
-    Navigator.pushNamed(
-      context,
-      "/details",
-      arguments: index,
-    );
+  void goToProfileView(BuildContext context) {
+    Navigator.pushNamed(context, "/profile");
   }
 }
