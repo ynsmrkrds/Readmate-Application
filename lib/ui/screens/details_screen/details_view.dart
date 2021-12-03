@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:readmate_app/models/ebook.dart';
 import 'package:readmate_app/ui/screens/details_screen/details_viewmodel.dart';
 import 'package:readmate_app/ui/widgets/cover_image_widget.dart';
 
@@ -9,7 +10,7 @@ class DetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _viewModel.index = ModalRoute.of(context)!.settings.arguments as int;
+    _viewModel.ebook = ModalRoute.of(context)!.settings.arguments as Ebook;
 
     return Scaffold(
       appBar: AppBar(
