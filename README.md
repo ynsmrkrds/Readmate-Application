@@ -11,5 +11,6 @@ There is a server in the backend and on this server the [Gutendex API](https://g
     - Google Firebase for database
 
 ## Contributors
-   - Muhammed Serhat BOZKURT
-   - Yunus Emre KARADAŞ
+
+    - Muhammed Serhat BOZKURT
+    - Yunus Emre KARADAŞ
