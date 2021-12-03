@@ -34,6 +34,42 @@ class DetailsView extends StatelessWidget {
     );
   }
 
+  Row buildGeneralInformationPart() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Flexible(
+          child: buildEbookCoverImage(),
+        ),
+        Flexible(
+          child: buildEbookTitleText(),
+        ),
+      ],
+    );
+  }
+
+  Container buildEbookCoverImage() {
+    return Container(
+      decoration: BoxDecoration(border: Border.all(color: Colors.black38)),
+      child: CoverImageWidget(
+        url: _viewModel.ebook.coverLink,
+        height: 150,
+      ),
+    );
+  }
+
+  Text buildEbookTitleText() {
+    return Text(
+      _viewModel.ebook.title,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18.0,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
   Padding buildAuthorsInformationPart() {
     return Padding(
       padding: const EdgeInsets.only(top: 36.0),
@@ -108,70 +144,6 @@ class DetailsView extends StatelessWidget {
               ),
             ),
         ],
-      ),
-    );
-  }
-
-  Row buildGeneralInformationPart() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Flexible(
-          child: buildEbookCoverImage(),
-        ),
-        Flexible(
-          child: Column(
-            children: [
-              buildEbookTitleText(),
-              const SizedBox(height: 18.0),
-              buildReadItButton(),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Container buildEbookCoverImage() {
-    return Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.black38)),
-      child: CoverImageWidget(
-        url: _viewModel.ebook.coverLink,
-        height: 150,
-      ),
-    );
-  }
-
-  Text buildEbookTitleText() {
-    return Text(
-      _viewModel.ebook.title,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 18.0,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-
-  TextButton buildReadItButton() {
-    return TextButton.icon(
-      onPressed: () {},
-      icon: const Icon(
-        Icons.auto_stories,
-        color: Colors.white,
-      ),
-      label: const Text(
-        "Read it",
-        style: TextStyle(
-          fontSize: 18.0,
-          color: Colors.white,
-        ),
-      ),
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all<double>(5.0),
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-        overlayColor: MaterialStateProperty.all<Color>(Colors.white10),
       ),
     );
   }
