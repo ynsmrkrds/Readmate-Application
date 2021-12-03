@@ -1,5 +1,5 @@
 # Readmate Application
-Muhammed Serhat Bozkurt
+
 
 This is an ebook reading application. It presents the ebooks in the Gutenberg project to its users. Users can add e-books in the app to their own bookshelves, so they don't have to remember anything about the last place they read.
 
@@ -10,3 +10,6 @@ There is a server in the backend and on this server the [Gutendex API](https://g
     - MVVM as architectural design
     - Microsoft Azure for server
     - Google Firebase for database
+
+## Contributors
+   - Muhammed Serhat BOZKURT
