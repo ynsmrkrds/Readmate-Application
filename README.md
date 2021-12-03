@@ -9,3 +9,7 @@ There is a server in the backend and on this server the [Gutendex API](https://g
     - MVVM as architectural design
     - Microsoft Azure for server
     - Google Firebase for database
+
+## Contributors
+   - Muhammed Serhat BOZKURT
+   - Yunus Emre KARADAŞ
