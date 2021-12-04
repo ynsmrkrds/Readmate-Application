@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readmate_app/enums/menu_items.dart';
-import 'package:readmate_app/models/bookmark.dart';
 import 'package:readmate_app/providers/ebook_provider.dart';
-import 'package:readmate_app/services/bookmark_service.dart';
 import 'package:readmate_app/ui/screens/home_screen/home_viewmodel.dart';
 import 'package:readmate_app/ui/widgets/ebooks_frame_widget.dart';
 
