@@ -23,4 +23,8 @@ class SearchingViewModel {
   void loadMore() {
     libraryProvider.loadMore();
   }
+
+  void clearMemory() {
+    libraryProvider.ebooks.clear();
+  }
 }

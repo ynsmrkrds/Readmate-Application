@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:readmate_app/enums/menu_items.dart';
+import 'package:readmate_app/models/bookmark.dart';
 import 'package:readmate_app/models/ebook.dart';
+import 'package:readmate_app/providers/bookshelf_provider.dart';
+import 'package:readmate_app/services/bookmark_service.dart';
 import 'package:readmate_app/ui/widgets/cover_image_widget.dart';
 
 class EbooksFrameWidget extends StatelessWidget {
@@ -49,13 +52,13 @@ class EbooksFrameWidget extends StatelessWidget {
     for (var menuItem in menuItems) {
       switch (menuItem) {
         case MenuItems.add:
-          items.add(buildAddToBookshelfButton());
+          items.add(buildAddToBookshelfButton(ebook));
           break;
         case MenuItems.details:
           items.add(buildGoToDetailsButton(context, ebook));
           break;
         case MenuItems.remove:
-          items.add(buildRemoveEBookButton());
+          items.add(buildRemoveEBookButton(ebook));
           break;
       }
     }
@@ -73,15 +76,20 @@ class EbooksFrameWidget extends StatelessWidget {
     );
   }
 
-  FocusedMenuItem buildAddToBookshelfButton() {
+  FocusedMenuItem buildAddToBookshelfButton(Ebook ebook) {
     return FocusedMenuItem(
       title: const Text("Add to Bookshelf"),
       trailingIcon: const Icon(Icons.add_box),
-      onPressed: () {},
+      onPressed: () {
+        bookshelfProvider.addEbook(Bookmark(
+          ebookId: ebook.id,
+          last: 0,
+        ));
+      },
     );
   }
 
-  FocusedMenuItem buildRemoveEBookButton() {
+  FocusedMenuItem buildRemoveEBookButton(Ebook ebook) {
     return FocusedMenuItem(
       title: const Text(
         "Remove E-book",
@@ -94,7 +102,9 @@ class EbooksFrameWidget extends StatelessWidget {
         color: Colors.white,
       ),
       backgroundColor: Colors.red,
-      onPressed: () {},
+      onPressed: () {
+        bookshelfProvider.removeEbook(ebook.id);
+      },
     );
   }
 

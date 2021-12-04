@@ -5,6 +5,7 @@ import 'package:readmate_app/enums/menu_items.dart';
 import 'package:readmate_app/providers/library_provider.dart';
 import 'package:readmate_app/ui/screens/searching_screen/searching_viewmodel.dart';
 import 'package:readmate_app/ui/widgets/ebooks_frame_widget.dart';
+import 'package:readmate_app/ui/widgets/searching_text_field_widget.dart';
 
 class SearchingView extends StatefulWidget {
   const SearchingView({Key? key}) : super(key: key);
@@ -24,28 +25,25 @@ class _SearchingViewState extends State<SearchingView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    _viewModel.clearMemory();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: buildSearchingTextField(),
+        title: SearchingTextFieldWidget(
+          onSubmitted: (value) {
+            _viewModel.searchEbook(value);
+          },
+        ),
       ),
       body: Center(
         child: buildBody(),
       ),
-    );
-  }
-
-  TextField buildSearchingTextField() {
-    return TextField(
-      decoration: const InputDecoration(
-        hintText: "Enter a keyword or a tag",
-        hintStyle: TextStyle(color: Colors.black54),
-        border: InputBorder.none,
-      ),
-      textInputAction: TextInputAction.search,
-      onSubmitted: (keyword) {
-        _viewModel.searchEbook(keyword);
-      },
     );
   }
 
