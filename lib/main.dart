@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:readmate_app/providers/bookshelf_provider.dart';
 import 'package:readmate_app/providers/ebook_provider.dart';
 import 'package:readmate_app/providers/library_provider.dart';
+import 'package:readmate_app/ui/screens/bookshelf_screen/bookshelf_view.dart';
 import 'package:readmate_app/ui/screens/details_screen/details_view.dart';
 import 'package:readmate_app/ui/screens/authentication_screen/authentication_view.dart';
 import 'package:readmate_app/ui/screens/home_screen/home_view.dart';
@@ -26,6 +28,7 @@ class ReadmateApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<EbookProvider>(create: (context) => ebookProvider),
         ChangeNotifierProvider<LibraryProvider>(create: (context) => libraryProvider),
+        ChangeNotifierProvider<BookshelfProvider>(create: (context) => bookshelfProvider),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,6 +39,7 @@ class ReadmateApp extends StatelessWidget {
           "/profile": (context) => ProfileView(),
           "/details": (context) => DetailsView(),
           "/searching": (context) => const SearchingView(),
+          "/bookshelf": (context) => const BookshelfView(),
         },
         initialRoute: "/",
       ),

@@ -9,11 +9,10 @@ class LibraryProvider extends ChangeNotifier {
   late Library? library;
 
   void searchEbook(String keyword) async {
-    if (keyword == "") {
-      ebooks.clear();
+    ebooks.clear();
+    notifyListeners();
 
-      notifyListeners();
-    } else {
+    if (keyword != "") {
       library = await LibraryService.search(keyword);
 
       if (library != null) {

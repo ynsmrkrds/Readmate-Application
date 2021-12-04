@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:readmate_app/providers/bookshelf_provider.dart';
 import 'package:readmate_app/providers/ebook_provider.dart';
 
 class HomeViewModel {
@@ -24,6 +25,10 @@ class HomeViewModel {
     }
   }
 
+  void fetchBookshelf() {
+    bookshelfProvider.getBookshelf();
+  }
+
   List<int> _generateRandomNumber() {
     Random random = Random();
     return List.generate(25, (index) => random.nextInt(15933));
@@ -31,6 +36,10 @@ class HomeViewModel {
 
   void goToSearchingView(BuildContext context) {
     Navigator.pushNamed(context, "/searching");
+  }
+
+  void goToBookshelfView(BuildContext context) {
+    Navigator.pushNamed(context, "/bookshelf");
   }
 
   void goToProfileView(BuildContext context) {
