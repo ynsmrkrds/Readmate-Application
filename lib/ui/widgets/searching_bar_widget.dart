@@ -5,11 +5,13 @@ class SearchingBarWidget extends StatefulWidget {
   const SearchingBarWidget({
     Key? key,
     required this.onSubmitted,
+    required this.onBarClosed,
     required this.title,
   }) : super(key: key);
 
-  final String title;
+  final Widget title;
   final Function(String value) onSubmitted;
+  final Function() onBarClosed;
 
   @override
   State<SearchingBarWidget> createState() => _SearchingBarWidgetState();
@@ -24,7 +26,7 @@ class _SearchingBarWidgetState extends State<SearchingBarWidget> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        isSearching ? buildSearchTextField() : Text(widget.title),
+        isSearching ? buildSearchTextField() : widget.title,
         buildOpenCloseSearchingBarButton(),
       ],
     );
@@ -32,9 +34,11 @@ class _SearchingBarWidgetState extends State<SearchingBarWidget> {
 
   Flexible buildSearchTextField() {
     return Flexible(
-      child: SearchingTextFieldWidget(onSubmitted: (value) {
-        widget.onSubmitted(value);
-      }),
+      child: SearchingTextFieldWidget(
+        onSubmitted: (value) {
+          widget.onSubmitted(value);
+        },
+      ),
     );
   }
 
@@ -42,6 +46,7 @@ class _SearchingBarWidgetState extends State<SearchingBarWidget> {
     return IconButton(
       icon: isSearching ? const Icon(Icons.close) : const Icon(Icons.search),
       onPressed: () {
+        widget.onBarClosed();
         setState(() {
           isSearching = isSearching == false ? true : false;
         });

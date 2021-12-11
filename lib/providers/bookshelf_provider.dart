@@ -22,6 +22,14 @@ class BookshelfProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateEbookBookmark(Bookmark bookmark) async {
+    BookmarkService.updateBookmark(bookmark);
+  }
+
+  Future<Bookmark?> getEbookBookmark(int ebookId) async {
+    return BookmarkService.getBookmark(ebookId);
+  }
+
   void searchEbook(String title) async {
     await getBookshelf();
 

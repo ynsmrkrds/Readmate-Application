@@ -37,6 +37,20 @@ class BookmarkService {
     }
   }
 
+  static Future<Bookmark?> getBookmark(int ebookId) async {
+    try {
+      Bookmark? bookmark;
+
+      await _bookshelves.doc(ebookId.toString()).get().then((value) {
+        bookmark = Bookmark.fromJson(value.data()!);
+      });
+
+      return bookmark;
+    } catch (e) {
+      return null;
+    }
+  }
+
   static Future<bool> removeTheBookmark(int ebookId) async {
     bool result = false;
 

@@ -42,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: const Text("ReadMate"),
+      title: const Text("Readmate"),
       actions: [
         buildSearchButton(),
         buildGoToBookshelfButton(),
@@ -84,7 +84,6 @@ class _HomeViewState extends State<HomeView> {
             MenuItems.details,
             MenuItems.add,
           ],
-          onPressed: () {},
         );
       },
     );

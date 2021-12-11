@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          "assets/google_logo.png",
+          "assets/logo.png",
           height: 150,
         ),
       ),
