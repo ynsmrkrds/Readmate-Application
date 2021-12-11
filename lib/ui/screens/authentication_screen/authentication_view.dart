@@ -34,7 +34,7 @@ class AuthenticationView extends StatelessWidget {
 
   Image buildLogo() {
     return Image.asset(
-      "assets/google_logo.png",
+      "assets/logo.png",
       height: 150,
     );
   }

@@ -5,7 +5,6 @@ import 'package:readmate_app/enums/menu_items.dart';
 import 'package:readmate_app/models/bookmark.dart';
 import 'package:readmate_app/models/ebook.dart';
 import 'package:readmate_app/providers/bookshelf_provider.dart';
-import 'package:readmate_app/services/bookmark_service.dart';
 import 'package:readmate_app/ui/widgets/cover_image_widget.dart';
 
 class EbooksFrameWidget extends StatelessWidget {
@@ -13,13 +12,11 @@ class EbooksFrameWidget extends StatelessWidget {
     Key? key,
     this.scrollController,
     required this.ebooks,
-    required this.onPressed,
     required this.menuItems,
   }) : super(key: key);
 
   final ScrollController? scrollController;
   final List<Ebook> ebooks;
-  final Function() onPressed;
   final List<MenuItems> menuItems;
 
   @override
@@ -38,7 +35,7 @@ class EbooksFrameWidget extends StatelessWidget {
           menuWidth: MediaQuery.of(context).size.width * 0.5,
           menuItems: getMenuItems(context, ebook),
           onPressed: () {
-            onPressed();
+            Navigator.pushNamed(context, "/reading", arguments: ebook);
           },
           child: buildEbookFrame(ebook),
         );

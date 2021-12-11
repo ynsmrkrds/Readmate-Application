@@ -36,4 +36,12 @@ class Ebook {
       coverLink: json["formats"]["image/jpeg"] as String?,
     );
   }
+
+  @override
+  bool operator ==(other) {
+    return (other is Ebook) && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

@@ -64,7 +64,6 @@ class _SearchingViewState extends State<SearchingView> {
                   MenuItems.details,
                   MenuItems.add,
                 ],
-                onPressed: () {},
               );
       },
     );

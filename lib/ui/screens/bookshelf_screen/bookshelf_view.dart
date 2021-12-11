@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:readmate_app/enums/menu_items.dart';
 import 'package:readmate_app/providers/bookshelf_provider.dart';
@@ -30,9 +31,12 @@ class _BookshelfViewState extends State<BookshelfView> {
     return Scaffold(
       appBar: AppBar(
         title: SearchingBarWidget(
-          title: "Bookshelf",
+          title: const Text("Bookshelf"),
           onSubmitted: (value) {
             _viewModel.searchEbook(value);
+          },
+          onBarClosed: () {
+            _viewModel.fetchBookshelf();
           },
         ),
       ),
@@ -45,14 +49,20 @@ class _BookshelfViewState extends State<BookshelfView> {
   Consumer<BookshelfProvider> buildBody() {
     return Consumer(
       builder: (context, provider, child) {
-        return EbooksFrameWidget(
-          ebooks: provider.ebooks,
-          menuItems: const [
-            MenuItems.details,
-            MenuItems.remove,
-          ],
-          onPressed: () {},
-        );
+        return provider.ebooks.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(48.0),
+                child: SvgPicture.asset(
+                  "assets/no_result.svg",
+                ),
+              )
+            : EbooksFrameWidget(
+                ebooks: provider.ebooks,
+                menuItems: const [
+                  MenuItems.details,
+                  MenuItems.remove,
+                ],
+              );
       },
     );
   }
