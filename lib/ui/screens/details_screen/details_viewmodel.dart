@@ -1,4 +1,4 @@
-import 'package:readmate_app/models/ebook.dart';
+import 'package:readmate_app/core/models/ebook.dart';
 
 class DetailsViewModel {
   late Ebook ebook;

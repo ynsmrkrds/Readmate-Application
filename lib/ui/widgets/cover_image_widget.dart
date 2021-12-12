@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CoverImageWidget extends StatelessWidget {
   final String? url;
@@ -17,9 +18,9 @@ class CoverImageWidget extends StatelessWidget {
       height: height,
       placeholder: const AssetImage("assets/loading.gif"),
       imageErrorBuilder: (context, error, stackTrace) {
-        return const Icon(
+        return Icon(
           Icons.image_not_supported_outlined,
-          size: 50,
+          size: 50.w,
         );
       },
       fit: BoxFit.fitWidth,

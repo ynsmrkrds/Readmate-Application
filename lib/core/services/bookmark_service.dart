@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:readmate_app/models/bookmark.dart';
-import 'package:readmate_app/services/authentication_service.dart';
+import 'package:readmate_app/core/models/bookmark.dart';
 
 class BookmarkService {
-  static final User? _user = AuthenticationService.getUser();
+  static final FirebaseFirestore _firebaseFirestoreInstance = FirebaseFirestore.instance;
 
   static final CollectionReference<Map<String, dynamic>> _bookshelves =
-      FirebaseFirestore.instance.collection("bookshelves").doc(_user!.uid).collection("bookmarks");
+      _firebaseFirestoreInstance.collection("bookshelves");
 
-  static Future<bool> addBookmark(Bookmark bookmark) async {
+  static Future<bool> addBookmark(String userId, Bookmark bookmark) async {
     bool result = false;
 
-    _bookshelves
+    await _bookshelves
+        .doc(userId)
+        .collection("bookmarks")
         .doc(bookmark.ebookId.toString())
         .set(bookmark.toJson())
         .then((value) => result = true)
@@ -21,11 +21,11 @@ class BookmarkService {
     return result;
   }
 
-  static Future<List<Bookmark>?> getBookmarks() async {
+  static Future<List<Bookmark>?> getBookmarks(String userId) async {
     List<Bookmark> bookmarks = [];
 
     try {
-      await _bookshelves.get().then((value) {
+      await _bookshelves.doc(userId).collection("bookmarks").get().then((value) {
         for (var bookmark in value.docs) {
           bookmarks.add(Bookmark.fromJson(bookmark.data()));
         }
@@ -37,24 +37,12 @@ class BookmarkService {
     }
   }
 
-  static Future<Bookmark?> getBookmark(int ebookId) async {
-    try {
-      Bookmark? bookmark;
-
-      await _bookshelves.doc(ebookId.toString()).get().then((value) {
-        bookmark = Bookmark.fromJson(value.data()!);
-      });
-
-      return bookmark;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  static Future<bool> removeTheBookmark(int ebookId) async {
+  static Future<bool> removeBookmark(String userId, int ebookId) async {
     bool result = false;
 
     await _bookshelves
+        .doc(userId)
+        .collection("bookmarks")
         .doc(ebookId.toString())
         .delete()
         .then((value) => result = true)
@@ -63,12 +51,12 @@ class BookmarkService {
     return result;
   }
 
-  static Future<bool> updateBookmark(Bookmark bookmark) async {
-    _bookshelves.doc(bookmark.ebookId.toString()).set(bookmark.toJson());
-
+  static Future<bool> updateBookmark(String userId, Bookmark bookmark) async {
     bool result = false;
 
     await _bookshelves
+        .doc(userId)
+        .collection("bookmarks")
         .doc(bookmark.ebookId.toString())
         .set(bookmark.toJson())
         .then((value) => result = true)

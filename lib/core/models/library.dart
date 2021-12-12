@@ -1,4 +1,7 @@
-import 'package:readmate_app/models/ebook.dart';
+/* this class represents a library that 
+  includes all ebooks in the server */
+
+import 'package:readmate_app/core/models/ebook.dart';
 
 class Library {
   final int count;
@@ -13,22 +16,13 @@ class Library {
     required this.results,
   });
 
-  Library.empty([
-    this.count = 0,
-    // ignore: avoid_init_to_null
-    this.next = null,
-    // ignore: avoid_init_to_null
-    this.previous = null,
-    this.results = const [],
-  ]);
-
   factory Library.fromJson(Map<String, dynamic> json) {
     return Library(
       count: json["count"] as int,
       next: json["next"] as String?,
       previous: json["previous"] as String?,
       results: List<Ebook>.from(
-        json["results"].toList().map((i) => Ebook.fromJson(i)).toList(),
+        json["results"].toList().map((data) => Ebook.fromJson(data)).toList(),
       ),
     );
   }

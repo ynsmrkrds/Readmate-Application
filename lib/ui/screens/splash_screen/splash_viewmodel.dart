@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:readmate_app/services/authentication_service.dart';
+import 'package:readmate_app/core/providers/account_provider.dart';
 
 class SplashViewModel {
   void checkAuthentication(BuildContext context) {
     Timer(const Duration(seconds: 2), () {
-      if (AuthenticationService.getUser() == null) {
+      if (accountProvider.user == null) {
         _goToAuthenticationView(context);
       } else {
         _goToHomeView(context);

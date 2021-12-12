@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readmate_app/providers/library_provider.dart';
+import 'package:readmate_app/core/providers/library_provider.dart';
 
 class SearchingViewModel {
   late final ScrollController _scrollController;
@@ -7,11 +7,7 @@ class SearchingViewModel {
   SearchingViewModel() {
     _scrollController = ScrollController();
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        loadMore();
-      }
-    });
+    _listenScrollController();
   }
 
   ScrollController get scrollController => _scrollController;
@@ -26,5 +22,14 @@ class SearchingViewModel {
 
   void clearMemory() {
     libraryProvider.ebooks.clear();
+  }
+
+  void _listenScrollController() {
+    _scrollController.addListener(() {
+      // fetches more ebooks if user reached the bottom of grid view
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        loadMore();
+      }
+    });
   }
 }

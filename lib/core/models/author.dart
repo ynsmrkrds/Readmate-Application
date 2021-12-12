@@ -1,3 +1,6 @@
+/* this class represents author of ebook that 
+  fetches from gutendex api in the server */
+
 class Author {
   final String name;
   final int? birthYear;

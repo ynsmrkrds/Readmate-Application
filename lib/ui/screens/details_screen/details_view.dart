@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:readmate_app/models/ebook.dart';
+import 'package:readmate_app/core/models/ebook.dart';
 import 'package:readmate_app/ui/screens/details_screen/details_viewmodel.dart';
 import 'package:readmate_app/ui/widgets/cover_image_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailsView extends StatelessWidget {
   DetailsView({Key? key}) : super(key: key);
@@ -13,13 +14,17 @@ class DetailsView extends StatelessWidget {
     _viewModel.ebook = ModalRoute.of(context)!.settings.arguments as Ebook;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Details"),
-      ),
+      appBar: buildAppBar(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
+        padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 48.0.h),
         child: buildBody(context),
       ),
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      title: const Text("Details"),
     );
   }
 
@@ -40,12 +45,8 @@ class DetailsView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Flexible(
-          child: buildEbookCoverImage(),
-        ),
-        Flexible(
-          child: buildEbookTitleText(),
-        ),
+        Flexible(child: buildEbookCoverImage()),
+        Flexible(child: buildEbookTitleText()),
       ],
     );
   }
@@ -55,7 +56,7 @@ class DetailsView extends StatelessWidget {
       decoration: BoxDecoration(border: Border.all(color: Colors.black38)),
       child: CoverImageWidget(
         url: _viewModel.ebook.coverLink,
-        height: 150,
+        height: 150.h,
       ),
     );
   }
@@ -63,33 +64,23 @@ class DetailsView extends StatelessWidget {
   Text buildEbookTitleText() {
     return Text(
       _viewModel.ebook.title,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 18.0,
-      ),
-      textAlign: TextAlign.center,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0.sp),
     );
   }
 
   Padding buildAuthorsInformationPart() {
     return Padding(
-      padding: const EdgeInsets.only(top: 36.0),
+      padding: EdgeInsets.only(top: 36.0.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Author(s) of Book",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-            ),
-          ),
+          buildTitleText("Author(s) of Book"),
           for (var author in _viewModel.ebook.authors)
             Padding(
-              padding: const EdgeInsets.only(top: 18.0, left: 18.0),
+              padding: EdgeInsets.only(top: 18.0.h, left: 18.0.w),
               child: Text(
                 "• ${author.name}   ${author.birthYear ?? "????"} - ${author.deathYear ?? "????"}",
-                style: const TextStyle(fontSize: 16.0),
+                style: TextStyle(fontSize: 16.0.sp),
               ),
             ),
         ],
@@ -99,23 +90,17 @@ class DetailsView extends StatelessWidget {
 
   Padding buildSubjectsInformationPart() {
     return Padding(
-      padding: const EdgeInsets.only(top: 36.0),
+      padding: EdgeInsets.only(top: 36.0.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Subjects",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-            ),
-          ),
+          buildTitleText("Subjects"),
           for (var subject in _viewModel.ebook.subjects)
             Padding(
-              padding: const EdgeInsets.only(left: 18.0, top: 18.0),
+              padding: EdgeInsets.only(left: 18.0.w, top: 18.0.h),
               child: Text(
                 "• $subject",
-                style: const TextStyle(fontSize: 16.0),
+                style: TextStyle(fontSize: 16.0.sp),
               ),
             ),
         ],
@@ -125,27 +110,28 @@ class DetailsView extends StatelessWidget {
 
   Padding buildLanguagesInformationPart() {
     return Padding(
-      padding: const EdgeInsets.only(top: 36.0),
+      padding: EdgeInsets.only(top: 36.0.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Languages",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0,
-            ),
-          ),
+          buildTitleText("Languages"),
           for (var language in _viewModel.ebook.languages)
             Padding(
-              padding: const EdgeInsets.only(left: 18.0, top: 18.0),
+              padding: EdgeInsets.only(left: 18.0.w, top: 18.0.h),
               child: Text(
                 "• ${language.toUpperCase()}",
-                style: const TextStyle(fontSize: 16.0),
+                style: TextStyle(fontSize: 16.0.sp),
               ),
             ),
         ],
       ),
+    );
+  }
+
+  Text buildTitleText(String title) {
+    return Text(
+      title,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0.sp),
     );
   }
 }

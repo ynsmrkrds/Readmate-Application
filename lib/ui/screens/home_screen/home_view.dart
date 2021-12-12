@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:readmate_app/enums/menu_items.dart';
-import 'package:readmate_app/providers/ebook_provider.dart';
+import 'package:readmate_app/core/providers/ebook_provider.dart';
 import 'package:readmate_app/ui/screens/home_screen/home_viewmodel.dart';
 import 'package:readmate_app/ui/widgets/ebooks_frame_widget.dart';
 
@@ -46,7 +45,7 @@ class _HomeViewState extends State<HomeView> {
       actions: [
         buildSearchButton(),
         buildGoToBookshelfButton(),
-        buildGoToProfileButton(context),
+        buildGoToProfileButton(),
       ],
     );
   }
@@ -65,12 +64,10 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  IconButton buildGoToProfileButton(context) {
+  IconButton buildGoToProfileButton() {
     return IconButton(
       icon: const Icon(Icons.account_circle),
-      onPressed: () {
-        _viewModel.goToProfileView(context);
-      },
+      onPressed: () => _viewModel.goToProfileView(context),
     );
   }
 
