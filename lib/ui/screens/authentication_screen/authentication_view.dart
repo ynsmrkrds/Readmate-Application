@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readmate_app/ui/screens/authentication_screen/authentication_viewmodel.dart';
+import 'package:readmate_app/ui/widgets/logo_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthenticationView extends StatelessWidget {
   final AuthenticationViewModel _viewModel = AuthenticationViewModel();
@@ -18,13 +20,12 @@ class AuthenticationView extends StatelessWidget {
   Column buildBody(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        buildLogo(),
+        LogoWidget(),
         Column(
           children: [
             buildContinueWithGoogleButton(context),
-            const SizedBox(height: 24.0),
+            SizedBox(height: 24.0.h),
             buildContinueAsGuest(context),
           ],
         ),
@@ -32,58 +33,46 @@ class AuthenticationView extends StatelessWidget {
     );
   }
 
-  Image buildLogo() {
-    return Image.asset(
-      "assets/logo.png",
-      height: 150,
+  TextButton buildContinueWithGoogleButton(BuildContext context) {
+    return TextButton.icon(
+      icon: googleIcon,
+      label: getLabel("Continue with Google"),
+      style: buttonStyle,
+      onPressed: () => _viewModel.continueWithGoogle(context),
     );
   }
 
-  TextButton buildContinueWithGoogleButton(BuildContext context) {
-    return TextButton.icon(
-      icon: Image.asset(
+  Image get googleIcon => Image.asset(
         "assets/google_logo.png",
-        height: 25,
-      ),
-      label: const Text(
-        "Continue with Google",
-        style: TextStyle(
-          color: Colors.black54,
-          fontSize: 18.0,
-        ),
-      ),
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all<double>(5.0),
-        backgroundColor: MaterialStateProperty.all<Color>(
-          Colors.white,
-        ),
-      ),
-      onPressed: () {
-        _viewModel.continueWithGoogle(context);
-      },
-    );
-  }
+        height: 25.h,
+      );
 
   TextButton buildContinueAsGuest(BuildContext context) {
     return TextButton.icon(
-      icon: const Icon(
-        Icons.account_circle,
-        size: 30,
-      ),
-      label: const Text(
-        "Continue as a Guest",
-        style: TextStyle(
-          color: Colors.black54,
-          fontSize: 18.0,
-        ),
-      ),
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all<double>(5.0),
-        backgroundColor: MaterialStateProperty.all<Color>(
-          Colors.white,
-        ),
-      ),
+      icon: accountIcon,
+      label: getLabel("Continue as a Guest"),
+      style: buttonStyle,
       onPressed: () {},
     );
   }
+
+  Icon get accountIcon => Icon(
+        Icons.account_circle,
+        size: 30.0.h,
+      );
+
+  Text getLabel(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        color: Colors.black54,
+        fontSize: 16.0.sp,
+      ),
+    );
+  }
+
+  ButtonStyle get buttonStyle => ButtonStyle(
+        elevation: MaterialStateProperty.all<double>(5.0.w),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      );
 }

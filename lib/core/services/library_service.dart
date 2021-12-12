@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:readmate_app/models/ebook.dart';
-import 'package:readmate_app/models/library.dart';
 import 'package:http/http.dart' as http;
+import 'package:readmate_app/core/models/ebook.dart';
+import 'package:readmate_app/core/models/library.dart';
 
 class LibraryService {
   // base url of library api

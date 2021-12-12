@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:readmate_app/enums/menu_items.dart';
-import 'package:readmate_app/models/bookmark.dart';
-import 'package:readmate_app/models/ebook.dart';
-import 'package:readmate_app/providers/bookshelf_provider.dart';
+import 'package:readmate_app/core/models/ebook.dart';
+import 'package:readmate_app/core/providers/account_provider.dart';
+import 'package:readmate_app/core/providers/bookshelf_provider.dart';
 import 'package:readmate_app/ui/widgets/cover_image_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+enum MenuItems {
+  remove,
+  add,
+  details,
+}
 
 class EbooksFrameWidget extends StatelessWidget {
   const EbooksFrameWidget({
@@ -23,7 +29,7 @@ class EbooksFrameWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       controller: scrollController,
-      padding: const EdgeInsets.all(18.0),
+      padding: EdgeInsets.all(18.0.w),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemCount: ebooks.length,
       itemBuilder: (context, index) {
@@ -32,11 +38,9 @@ class EbooksFrameWidget extends StatelessWidget {
         return FocusedMenuHolder(
           blurSize: 4,
           blurBackgroundColor: Colors.black,
-          menuWidth: MediaQuery.of(context).size.width * 0.5,
+          menuWidth: 225.w,
           menuItems: getMenuItems(context, ebook),
-          onPressed: () {
-            Navigator.pushNamed(context, "/reading", arguments: ebook);
-          },
+          onPressed: () => Navigator.pushNamed(context, "/reading", arguments: ebook),
           child: buildEbookFrame(ebook),
         );
       },
@@ -55,7 +59,7 @@ class EbooksFrameWidget extends StatelessWidget {
           items.add(buildGoToDetailsButton(context, ebook));
           break;
         case MenuItems.remove:
-          items.add(buildRemoveEBookButton(ebook));
+          items.add(buildRemoveEbookButton(ebook));
           break;
       }
     }
@@ -67,9 +71,7 @@ class EbooksFrameWidget extends StatelessWidget {
     return FocusedMenuItem(
       title: const Text("Details"),
       trailingIcon: const Icon(Icons.info),
-      onPressed: () {
-        Navigator.pushNamed(context, "/details", arguments: ebook);
-      },
+      onPressed: () => Navigator.pushNamed(context, "/details", arguments: ebook),
     );
   }
 
@@ -77,57 +79,53 @@ class EbooksFrameWidget extends StatelessWidget {
     return FocusedMenuItem(
       title: const Text("Add to Bookshelf"),
       trailingIcon: const Icon(Icons.add_box),
-      onPressed: () {
-        bookshelfProvider.addEbook(Bookmark(
-          ebookId: ebook.id,
-          last: 0,
-        ));
-      },
+      onPressed: () => bookshelfProvider.addEbook(accountProvider.user!.uid, ebook),
     );
   }
 
-  FocusedMenuItem buildRemoveEBookButton(Ebook ebook) {
+  FocusedMenuItem buildRemoveEbookButton(Ebook ebook) {
     return FocusedMenuItem(
-      title: const Text(
-        "Remove E-book",
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
-      trailingIcon: const Icon(
-        Icons.delete,
-        color: Colors.white,
-      ),
+      title: buildRemoveEbookTitle(),
+      trailingIcon: removeEbookButtonIcon,
       backgroundColor: Colors.red,
-      onPressed: () {
-        bookshelfProvider.removeEbook(ebook.id);
-      },
+      onPressed: () => bookshelfProvider.removeEbook(accountProvider.user!.uid, ebook.id),
     );
   }
+
+  Text buildRemoveEbookTitle() {
+    return const Text(
+      "Remove E-book",
+      style: TextStyle(color: Colors.white),
+    );
+  }
+
+  Icon get removeEbookButtonIcon => const Icon(Icons.delete, color: Colors.white);
 
   Card buildEbookFrame(Ebook ebook) {
     return Card(
       elevation: 7,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Flexible(
-              child: CoverImageWidget(
-                url: ebook.coverLink,
-                height: 100,
-              ),
-            ),
-            Flexible(
-              child: buildEbookTitleText(ebook),
-            ),
+            Flexible(child: buildCoverImage(ebook)),
+            Flexible(child: buildEbookTitleText(ebook)),
           ],
         ),
       ),
     );
   }
 
-  Text buildEbookTitleText(Ebook ebook) => Text(ebook.title);
+  CoverImageWidget buildCoverImage(Ebook ebook) {
+    return CoverImageWidget(
+      url: ebook.coverLink,
+      height: 100.w,
+    );
+  }
+
+  Text buildEbookTitleText(Ebook ebook) {
+    return Text(ebook.title);
+  }
 }

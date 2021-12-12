@@ -35,9 +35,7 @@ class _SearchingBarWidgetState extends State<SearchingBarWidget> {
   Flexible buildSearchTextField() {
     return Flexible(
       child: SearchingTextFieldWidget(
-        onSubmitted: (value) {
-          widget.onSubmitted(value);
-        },
+        onSubmitted: (value) => widget.onSubmitted(value),
       ),
     );
   }

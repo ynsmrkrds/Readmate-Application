@@ -1,4 +1,7 @@
-import 'package:readmate_app/models/author.dart';
+import 'package:readmate_app/core/models/author.dart';
+
+/* this class represents ebook that 
+  fetches from gutendex api in the server */
 
 class Ebook {
   final int id;

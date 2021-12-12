@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readmate_app/ui/screens/profile_screen/profile_viewmodel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileView extends StatelessWidget {
   final ProfileViewModel _viewModel = ProfileViewModel();
@@ -9,91 +10,94 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-      ),
+      appBar: buildAppBar(),
       body: Center(
         child: buildBody(context),
       ),
     );
   }
 
-  buildBody(context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 48.0,
-            horizontal: 24.0,
-          ),
-          child: buildUserDetailField(),
-        ),
-        buildSignOutButton(context)
-      ],
+  AppBar buildAppBar() {
+    return AppBar(
+      title: const Text("Profile"),
+    );
+  }
+
+  Padding buildBody(context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 48.0.h, horizontal: 24.0.w),
+      child: Column(
+        children: [
+          buildUserDetailField(),
+          SizedBox(height: 48.0.h),
+          buildSignOutButton(context),
+        ],
+      ),
     );
   }
 
   Row buildUserDetailField() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buildUserAvatarImage(),
+        buildUserProfileImage(),
         buildUserInformationField(),
       ],
     );
   }
 
-  CircleAvatar buildUserAvatarImage() {
+  CircleAvatar buildUserProfileImage() {
     return CircleAvatar(
-      radius: 45.0,
-      backgroundImage: NetworkImage(
-        _viewModel.readerUser.photoUrl,
-      ),
+      radius: 45.0.r,
+      backgroundImage: NetworkImage(_viewModel.user.photoUrl),
       backgroundColor: Colors.blue,
     );
   }
 
   Column buildUserInformationField() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          _viewModel.readerUser.name,
-          style: const TextStyle(fontSize: 28.0),
-        ),
-        const SizedBox(height: 12.0),
-        Text(
-          _viewModel.readerUser.email,
-          style: const TextStyle(fontSize: 14.0),
-        ),
+        buildNameText(),
+        SizedBox(height: 12.0.h),
+        buildEmailText(),
       ],
+    );
+  }
+
+  Text buildNameText() {
+    return Text(
+      _viewModel.user.name,
+      style: TextStyle(fontSize: 28.0.sp),
+    );
+  }
+
+  Text buildEmailText() {
+    return Text(
+      _viewModel.user.email,
+      style: TextStyle(fontSize: 14.0.sp),
     );
   }
 
   TextButton buildSignOutButton(context) {
     return TextButton.icon(
-      icon: const Icon(
+      icon: Icon(
         Icons.logout,
-        size: 36,
+        size: 36.h,
+        color: Color(0xffff5757),
       ),
-      label: const Text(
-        "Sign Out",
-        style: TextStyle(
-          color: Colors.black54,
-          fontSize: 18.0,
-        ),
-      ),
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all<double>(5.0),
-        backgroundColor: MaterialStateProperty.all<Color>(
-          Colors.white,
-        ),
-      ),
-      onPressed: () {
-        _viewModel.signOut(context);
-      },
+      label: label,
+      style: buttonStyle,
+      onPressed: () => _viewModel.signOut(context),
     );
   }
+
+  Text get label => Text(
+        "Sign Out",
+        style: TextStyle(color: Colors.black54, fontSize: 18.0.sp),
+      );
+
+  ButtonStyle get buttonStyle => ButtonStyle(
+        elevation: MaterialStateProperty.all<double>(5.0.w),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      );
 }

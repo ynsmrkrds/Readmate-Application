@@ -1,3 +1,6 @@
+/* this class represents bookmark of ebook that 
+  owned by the user */
+
 class Bookmark {
   final int ebookId;
   final int last;
@@ -20,4 +23,12 @@ class Bookmark {
       "last": last,
     };
   }
+
+  @override
+  bool operator ==(other) {
+    return (other is Bookmark) && other.ebookId == ebookId;
+  }
+
+  @override
+  int get hashCode => ebookId.hashCode;
 }

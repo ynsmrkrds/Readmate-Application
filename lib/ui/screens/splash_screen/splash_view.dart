@@ -1,33 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:readmate_app/ui/screens/splash_screen/splash_viewmodel.dart';
+import 'package:readmate_app/ui/widgets/logo_widget.dart';
 
-class SplashView extends StatefulWidget {
-  const SplashView({Key? key}) : super(key: key);
+class SplashView extends StatelessWidget {
+  final SplashViewModel _viewModel = SplashViewModel();
 
-  @override
-  State<SplashView> createState() => _SplashViewState();
-}
-
-class _SplashViewState extends State<SplashView> {
-  late final SplashViewModel _viewModel;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _viewModel = SplashViewModel();
-
-    _viewModel.checkAuthentication(context);
-  }
+  SplashView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    _viewModel.checkAuthentication(context);
+
     return Scaffold(
       body: Center(
-        child: Image.asset(
-          "assets/logo.png",
-          height: 150,
-        ),
+        child: LogoWidget(),
       ),
     );
   }
