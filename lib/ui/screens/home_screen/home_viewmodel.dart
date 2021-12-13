@@ -16,6 +16,8 @@ class HomeViewModel {
 
   ScrollController get scrollController => _scrollController;
 
+  bool isGuest() => accountProvider.user == null;
+
   void fetchEbooks() async {
     for (int id in _generateRandomNumber()) {
       ebookProvider.fetchEbook(id);
@@ -23,7 +25,9 @@ class HomeViewModel {
   }
 
   void fetchBookshelf() {
-    bookshelfProvider.getBookshelf(accountProvider.user!.uid);
+    if (accountProvider.user != null) {
+      bookshelfProvider.getBookshelf(accountProvider.user!.uid);
+    }
   }
 
   void goToSearchingView(BuildContext context) {

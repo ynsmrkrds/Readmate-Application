@@ -52,7 +52,7 @@ class AuthenticationView extends StatelessWidget {
       icon: accountIcon,
       label: getLabel("Continue as a Guest"),
       style: buttonStyle,
-      onPressed: () {},
+      onPressed: () => _viewModel.goToHomeView(context),
     );
   }
 

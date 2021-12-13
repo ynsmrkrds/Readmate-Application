@@ -44,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
       title: const Text("Readmate"),
       actions: [
         buildSearchButton(),
-        buildGoToBookshelfButton(),
+        if (_viewModel.isGuest() == false) buildGoToBookshelfButton(),
         buildGoToProfileButton(),
       ],
     );
@@ -77,9 +77,9 @@ class _HomeViewState extends State<HomeView> {
         return EbooksFrameWidget(
           ebooks: provider.ebooks,
           scrollController: _viewModel.scrollController,
-          menuItems: const [
+          menuItems: [
             MenuItems.details,
-            MenuItems.add,
+            if (_viewModel.isGuest() == false) MenuItems.add,
           ],
         );
       },

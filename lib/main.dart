@@ -40,12 +40,7 @@ class ReadMateApp extends StatelessWidget {
           return MaterialApp(
             title: "Readmate",
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              scaffoldBackgroundColor: Color(0xffe8e8e8),
-              appBarTheme: AppBarTheme(
-                backgroundColor: Color(0xff7b7575),
-              ),
-            ),
+            theme: theme,
             routes: {
               "/": (context) => SplashView(),
               "/authentication": (context) => AuthenticationView(),
@@ -62,4 +57,12 @@ class ReadMateApp extends StatelessWidget {
       ),
     );
   }
+
+  ThemeData get theme => ThemeData(
+        progressIndicatorTheme: ProgressIndicatorThemeData(color: Color(0xffff5757)),
+        scaffoldBackgroundColor: Color(0xffe8e8e8),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xff7b7575),
+        ),
+      );
 }

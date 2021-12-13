@@ -15,5 +15,16 @@ class ProfileViewModel {
     }
   }
 
-  User get user => accountProvider.user!;
+  User get user {
+    if (accountProvider.user == null) {
+      return User(
+        name: "Guest",
+        email: "There is no email address.",
+        photoUrl: "https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png",
+        uid: "0",
+      );
+    } else {
+      return accountProvider.user!;
+    }
+  }
 }

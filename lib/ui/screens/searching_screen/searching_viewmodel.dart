@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:readmate_app/core/providers/account_provider.dart';
 import 'package:readmate_app/core/providers/library_provider.dart';
 
 class SearchingViewModel {
@@ -11,6 +12,8 @@ class SearchingViewModel {
   }
 
   ScrollController get scrollController => _scrollController;
+
+  bool isGuest() => accountProvider.user == null;
 
   void searchEbook(String keyword) {
     libraryProvider.searchEbook(keyword);

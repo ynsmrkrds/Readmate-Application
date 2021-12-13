@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readmate_app/core/models/bookmark.dart';
 import 'package:readmate_app/core/models/ebook.dart';
 import 'package:readmate_app/core/providers/account_provider.dart';
@@ -11,9 +12,15 @@ class ReadingViewModel {
 
   late Ebook ebook;
 
+  late final ValueNotifier<bool> _isLoadNotifier;
+
   ReadingViewModel() {
     _originalBodyData = "";
+
+    _isLoadNotifier = ValueNotifier<bool>(false);
   }
+
+  ValueNotifier<bool> get isLoadNotifier => _isLoadNotifier;
 
   void initializeWebViewController(WebViewController controller) {
     _webViewController = controller;
@@ -21,7 +28,7 @@ class ReadingViewModel {
 
   void search(String keyword) async {
     if (keyword != "") {
-      _loadOriginalBodyData();
+      await _loadOriginalBodyData();
 
       String searchAndHighlightCommand = 'document.getElementsByTagName("body")[0].innerHTML';
       searchAndHighlightCommand += '=';
@@ -34,10 +41,26 @@ class ReadingViewModel {
   }
 
   void setOriginalBodyData() async {
+    if (accountProvider.user == null) {
+      // 20% of the content of the e-book is shown to the guest user
+      String limitCommand = "var body = document.getElementsByTagName('body')[0];";
+      limitCommand += "var length = body.children.length;";
+      limitCommand += "for (var i = length-1; i > (length * 0.2); i--) {body.children[i].remove()}";
+      await _webViewController.runJavascriptReturningResult(limitCommand);
+
+      // adds a warning message to the end of 20% of the content of the e-book
+      String warningMessageCommand = r"const warning = document.createElement('div');";
+      warningMessageCommand +=
+          r"""warning.innerHTML = "<h2 style='padding:24px;background-color:#ffbd4d;color:Black;text-align:center;'>Authenticate to view the entire ebook!</h2>";""";
+      warningMessageCommand += r"document.body.appendChild(warning);";
+      await _webViewController.runJavascript(warningMessageCommand);
+    }
+
     // gets body of current html page
     String getBodyCommand = 'document.getElementsByTagName("body")[0].innerHTML';
-
     _originalBodyData = await _webViewController.runJavascriptReturningResult(getBodyCommand);
+
+    _isLoadNotifier.value = true;
   }
 
   void goToLast() async {
@@ -66,7 +89,7 @@ class ReadingViewModel {
     }
   }
 
-  void _loadOriginalBodyData() async {
+  Future<void> _loadOriginalBodyData() async {
     // load the original, first, html data to web view
     await _webViewController.runJavascript(
       'document.getElementsByTagName("body")[0].innerHTML = $_originalBodyData',
