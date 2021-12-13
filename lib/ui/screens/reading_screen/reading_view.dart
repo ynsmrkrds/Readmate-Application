@@ -49,13 +49,23 @@ class ReadingView extends StatelessWidget {
     );
   }
 
-  WebView buildBody() {
-    return WebView(
-      javascriptMode: JavascriptMode.unrestricted,
-      initialUrl: _viewModel.ebook.link,
-      onWebViewCreated: (controller) => _viewModel.initializeWebViewController(controller),
-      onPageStarted: (url) => _viewModel.goToLast(),
-      onPageFinished: (url) => _viewModel.setOriginalBodyData(),
+  ValueListenableBuilder buildBody() {
+    return ValueListenableBuilder(
+      valueListenable: _viewModel.isLoadNotifier,
+      builder: (context, isLoad, child) {
+        return Stack(
+          children: [
+            WebView(
+              javascriptMode: JavascriptMode.unrestricted,
+              initialUrl: _viewModel.ebook.link,
+              onWebViewCreated: (controller) => _viewModel.initializeWebViewController(controller),
+              onPageStarted: (url) => _viewModel.goToLast(),
+              onPageFinished: (url) => _viewModel.setOriginalBodyData(),
+            ),
+            if (isLoad == false) Center(child: CircularProgressIndicator()),
+          ],
+        );
+      },
     );
   }
 }

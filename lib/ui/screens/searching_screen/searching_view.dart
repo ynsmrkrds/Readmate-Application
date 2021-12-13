@@ -72,9 +72,9 @@ class _SearchingViewState extends State<SearchingView> {
     return EbooksFrameWidget(
       ebooks: provider.ebooks,
       scrollController: _viewModel.scrollController,
-      menuItems: const [
+      menuItems: [
         MenuItems.details,
-        MenuItems.add,
+        if (_viewModel.isGuest() == false) MenuItems.add,
       ],
     );
   }
